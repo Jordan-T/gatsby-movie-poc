@@ -25,12 +25,12 @@ export default class PostTemplate extends React.Component {
     }
     return (
       <Layout>
-        <div>
+        <main id="col-main">
           <Helmet>
             <title>{`${post.title} | ${config.siteTitle}`}</title>
           </Helmet>
           <SEO postPath={slug} postNode={postNode} postSEO />
-          <div>
+          <div className="dashboard-container">
             <h1>{post.title}</h1>
             <div dangerouslySetInnerHTML={{ __html: postNode.html }} />
             <div className="post-meta">
@@ -40,7 +40,7 @@ export default class PostTemplate extends React.Component {
             <UserInfo config={config} />
             <Disqus postNode={postNode} />
           </div>
-        </div>
+        </main>
       </Layout>
     );
   }

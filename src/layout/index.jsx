@@ -1,12 +1,14 @@
-import React from "react";
+import React, { PureComponent } from "react";
 import Helmet from "react-helmet";
+import { Link } from "gatsby";
 import config from "../../data/SiteConfig";
 import "../assets/css/bootstrap.min.css";
 import "../assets/css/style.css";
 import "../assets/css/iconsmind.min.css";
 import "../assets/css/fontawesome-all.min.css";
+import "./index.css";
 
-export default class MainLayout extends React.Component {
+export default class MainLayout extends PureComponent {
   render() {
     const { children } = this.props;
 
@@ -18,9 +20,12 @@ export default class MainLayout extends React.Component {
 
         <header id="videohead-pro" className="sticky-header">
           <div id="video-logo-background">
-            <a href="dashboard-home.html">
-              <img src="http://progression-studios.com/skrn/images/logo-video-layout.png" alt="Logo" />
-            </a>
+            <Link to="/">
+              <img
+                src="http://progression-studios.com/skrn/images/logo-video-layout.png"
+                alt="Logo"
+              />
+            </Link>
           </div>
 
           <div id="video-search-header">
@@ -154,7 +159,10 @@ export default class MainLayout extends React.Component {
 
           <div id="header-user-profile">
             <div id="header-user-profile-click" className="noselect">
-              <img src="http://progression-studios.com/skrn/images/demo/user-profile.jpg" alt="Suzie" />
+              <img
+                src="http://progression-studios.com/skrn/images/demo/user-profile.jpg"
+                alt="Suzie"
+              />
               <div id="header-username">Suzie Smith</div>
               <i className="fas fa-angle-down" />
             </div>
@@ -162,27 +170,32 @@ export default class MainLayout extends React.Component {
               <ul>
                 <li>
                   <a href="dashboard-profile.html">
-                    <span className="icon-User" />My Profile
+                    <span className="icon-User" />
+                    My Profile
                   </a>
                 </li>
                 <li>
                   <a href="dashboard-favorites.html">
-                    <span className="icon-Favorite-Window" />My Favorites
+                    <span className="icon-Favorite-Window" />
+                    My Favorites
                   </a>
                 </li>
                 <li>
                   <a href="dashboard-account.html">
-                    <span className="icon-Gears" />Account Details
+                    <span className="icon-Gears" />
+                    Account Details
                   </a>
                 </li>
                 <li>
                   <a href="#!">
-                    <span className="icon-Life-Safer" />Help/Support
+                    <span className="icon-Life-Safer" />
+                    Help/Support
                   </a>
                 </li>
                 <li>
                   <a href="index.html">
-                    <span className="icon-Power-3" />Log Out
+                    <span className="icon-Power-3" />
+                    Log Out
                   </a>
                 </li>
               </ul>
@@ -200,7 +213,10 @@ export default class MainLayout extends React.Component {
                 <ul id="header-user-notification-list">
                   <li>
                     <a href="#!">
-                      <img src="http://progression-studios.com/skrn/images/demo/user-profile-2.jpg" alt="Profile" />
+                      <img
+                        src="http://progression-studios.com/skrn/images/demo/user-profile-2.jpg"
+                        alt="Profile"
+                      />
                       Lorem ipsum dolor sit amet, consec tetur adipiscing elit.{" "}
                       <div className="header-user-notify-time">
                         21 hours ago
@@ -209,14 +225,20 @@ export default class MainLayout extends React.Component {
                   </li>
                   <li>
                     <a href="#!">
-                      <img src="http://progression-studios.com/skrn/images/demo/user-profile-3.jpg" alt="Profile" />
+                      <img
+                        src="http://progression-studios.com/skrn/images/demo/user-profile-3.jpg"
+                        alt="Profile"
+                      />
                       Donec vitae lacus id arcu molestie mollis.{" "}
                       <div className="header-user-notify-time">3 days ago</div>
                     </a>
                   </li>
                   <li>
                     <a href="#!">
-                      <img src="http://progression-studios.com/skrn/images/demo/user-profile-4.jpg" alt="Profile" />
+                      <img
+                        src="http://progression-studios.com/skrn/images/demo/user-profile-4.jpg"
+                        alt="Profile"
+                      />
                       Aenean vitae lectus non purus facilisis imperdiet.{" "}
                       <div className="header-user-notify-time">5 days ago</div>
                     </a>

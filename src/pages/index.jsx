@@ -1,6 +1,6 @@
 import React from "react";
 import Helmet from "react-helmet";
-import { graphql } from "gatsby";
+import { graphql, Link } from "gatsby";
 import Layout from "../layout";
 import PostListing from "../components/PostListing/PostListing";
 import SEO from "../components/SEO/SEO";
@@ -11,11 +11,17 @@ class Index extends React.Component {
     const postEdges = this.props.data.allMarkdownRemark.edges;
     return (
       <Layout>
-        <div className="index-container">
+        <main id="col-main">
           <Helmet title={config.siteTitle} />
           <SEO />
-          <PostListing postEdges={postEdges} />
-        </div>
+          <div className="dashboard-container">
+            <h1 className="my-5">
+              <Link to="/movie">&gt; Test movie page &lt;</Link>
+            </h1>
+            <hr />
+            <PostListing postEdges={postEdges} />
+          </div>
+        </main>
       </Layout>
     );
   }

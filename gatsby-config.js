@@ -21,6 +21,13 @@ module.exports = {
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-lodash",
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `images`,
+        path: `${__dirname}/src/images`
+      }
+    },
+    {
       resolve: "gatsby-source-filesystem",
       options: {
         name: "assets",
@@ -92,6 +99,15 @@ module.exports = {
             type: "image/png"
           }
         ]
+      }
+    },
+    `gatsby-plugin-postcss`,
+    {
+      resolve: "gatsby-plugin-purgecss",
+      options: {
+        printRejected: true,
+        develop: true,
+        purgeOnly: ["src/assets/css/"]
       }
     },
     "gatsby-plugin-offline",

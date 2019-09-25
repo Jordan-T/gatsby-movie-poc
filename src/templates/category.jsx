@@ -11,12 +11,14 @@ export default class CategoryTemplate extends React.Component {
     const postEdges = this.props.data.allMarkdownRemark.edges;
     return (
       <Layout>
-        <div className="category-container">
+        <main id="col-main">
           <Helmet
             title={`Posts in category "${category}" | ${config.siteTitle}`}
           />
-          <PostListing postEdges={postEdges} />
-        </div>
+          <div className="dashboard-container">
+            <PostListing postEdges={postEdges} />
+          </div>
+        </main>
       </Layout>
     );
   }

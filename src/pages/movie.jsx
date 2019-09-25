@@ -1,21 +1,98 @@
-import React, { Component } from "react";
+import { graphql } from "gatsby";
+import Img from "gatsby-image";
+import React, { PureComponent } from "react";
 import Helmet from "react-helmet";
+import Rating from "../components/raiting";
+import Rate from "../components/rate";
+import Review from "../components/review";
 import Layout from "../layout";
 import config from "../../data/SiteConfig";
 
-class MoviePage extends Component {
+const reviews = [
+  {
+    name: "Dan Cederholm",
+    date: "2017-10-27",
+    rating: 8.6,
+    content: `<p>They don&apos;t make many Sci-Fi films these days. This was a
+      pleasant surprise all throughout the film. I really like
+      this film.</p>`,
+    withSpoiler: true
+  },
+  {
+    name: "Jeff Seid",
+    date: "2017-10-18",
+    rating: 5.3,
+    content: `<p>Coming out of the theatres following my viewing of this
+                      film, I was confused. I couldn&apos;t decide whether I liked it
+                      or not.</p>`
+  },
+  {
+    name: "Christian De Guzman",
+    date: "2017-08-26",
+    rating: 7.2,
+    content: `<p>I have been a cinema lover for years, read a lot of
+                      reviews on SKRN and everywhere, and never found the right
+                      movie to write my first review. I always thought I would
+                      wait for the movie.</p>
+                      <p>And this is it!</p>`
+  },
+  {
+    name: "Jennifer Thomas",
+    date: "2017-08-15",
+    rating: 9,
+    content: `<p>&apos;Oblivion&apos; was incredible. The visuals, the score, the
+                      acting, were all amazing. The plot is definitely one of
+                      the most original I&apos;ve seen in a while</p>`
+  }
+];
+
+const baseVideos = [
+  { id: 1, title: "Trailer" },
+  { id: 2, title: "Interview" },
+  { id: 3, title: "Movie Stills" }
+];
+const baseCasts = [
+  { id: 1, name: "Robert Downey Jr.", movieName: "Tony Stark" },
+  { id: 2, name: "Scarlett Johansson", movieName: "Black Widow" },
+  { id: 3, name: "Chris Hemsworth Thor", movieName: "Tony Stark" }
+];
+const baseMovies = [
+  { id: 1, title: "Bad Neighbors 2", rating: 7.2 },
+  { id: 2, title: "Star Wars: Rogue One", rating: 8.6 },
+  { id: 3, title: "The Imitation Game", rating: 6 }
+];
+
+class MoviePage extends PureComponent {
   render() {
+    const { data } = this.props;
+
+    const videos = data.videos.edges.map(
+      ({ node: { childImageSharp } }, i) => ({
+        childImageSharp,
+        ...baseVideos[i]
+      })
+    );
+
+    const casts = data.casts.edges.map(({ node: { childImageSharp } }, i) => ({
+      childImageSharp,
+      ...baseCasts[i]
+    }));
+
+    const movies = data.movies.edges.map(
+      ({ node: { childImageSharp } }, i) => ({
+        childImageSharp,
+        ...baseMovies[i]
+      })
+    );
+
     return (
       <Layout>
         <div className="about-container">
-          <Helmet title={`About | ${config.siteTitle}`} />
+          <Helmet title={`Movie | ${config.siteTitle}`} />
           <>
             <div id="content-sidebar-pro">
               <div id="content-sidebar-image">
-                <img
-                  src="http://progression-studios.com/skrn/images/demo/movie-detail-poster.jpg"
-                  alt="Movie Poster"
-                />
+                <Img {...data.mainImage.childImageSharp} alt="Movie Poster" />
               </div>
 
               <div className="content-sidebar-section">
@@ -52,102 +129,9 @@ class MoviePage extends Component {
                   Recent Reviews
                 </h2>
                 <ul id="sidebar-reviews-pro">
-                  <li>
-                    <div
-                      className="circle-rating-pro"
-                      data-value="0.86"
-                      data-animation-start-value="0.86"
-                      data-size="32"
-                      data-thickness="3"
-                      data-fill='{
-				          "color": "#42b740"
-				        }'
-                      data-empty-fill="#def6de"
-                      data-reverse="true"
-                    >
-                      <span style={{color:'#42b740'}}>8.6</span>
-                    </div>
-                    <h6>Dan Cederholm</h6>
-                    <div className="sidebar-review-time">October 22, 2017</div>
-                    <div className="spoiler-review">Contains Spoiler</div>
-                    <p>
-                      They don&laps;t make many Sci-Fi films these days. This was a
-                      pleasant surprise all throughout the film. I really like
-                      this film.
-                    </p>
-                  </li>
-                  <li>
-                    <div
-                      className="circle-rating-pro"
-                      data-value="0.53"
-                      data-animation-start-value="0.53"
-                      data-size="32"
-                      data-thickness="3"
-                      data-fill='{
-				          "color": "#ff4141"
-				        }'
-                      data-empty-fill="#ffe1e1"
-                      data-reverse="true"
-                    >
-                      <span style={{color:'#ff4141'}}>5.3</span>
-                    </div>
-                    <h6>Jeff Seid</h6>
-                    <div className="sidebar-review-time">October 18, 2017</div>
-                    <p>
-                      Coming out of the theatres following my viewing of this
-                      film, I was confused. I couldn&laps;t decide whether I liked it
-                      or not.
-                    </p>
-                  </li>
-                  <li>
-                    <div
-                      className="circle-rating-pro"
-                      data-value="0.72"
-                      data-animation-start-value="0.72"
-                      data-size="32"
-                      data-thickness="3"
-                      data-fill='{
-				          "color": "#42b740"
-				        }'
-                      data-empty-fill="#def6de"
-                      data-reverse="true"
-                    >
-                      <span style={{color:'#42b740'}}>7.2</span>
-                    </div>
-                    <h6>Christian De Guzman</h6>
-                    <div className="sidebar-review-time">August 26, 2017</div>
-                    <div className="spoiler-review">Contains Spoiler</div>
-                    <p>
-                      I have been a cinema lover for years, read a lot of
-                      reviews on SKRN and everywhere, and never found the right
-                      movie to write my first review. I always thought I would
-                      wait for the movie.
-                    </p>
-                    <p>And this is it!</p>
-                  </li>
-                  <li>
-                    <div
-                      className="circle-rating-pro"
-                      data-value="0.9"
-                      data-animation-start-value="0.9"
-                      data-size="32"
-                      data-thickness="3"
-                      data-fill='{
-				          "color": "#42b740"
-				        }'
-                      data-empty-fill="#def6de"
-                      data-reverse="true"
-                    >
-                      <span style={{color:'#42b740'}}>9.0</span>
-                    </div>
-                    <h6>Jennifer Thomas</h6>
-                    <div className="sidebar-review-time">August 15, 2017</div>
-                    <p>
-                      &laps;Oblivion&laps; was incredible. The visuals, the score, the
-                      acting, were all amazing. The plot is definitely one of
-                      the most original I&laps;ve seen in a while
-                    </p>
-                  </li>
+                  {reviews.map((review, i) => (
+                    <Review key={i} {...review} />
+                  ))}
                 </ul>
                 <a href="#!" className="btn btn-green-pro btn-sm">
                   See All Reviews
@@ -155,10 +139,13 @@ class MoviePage extends Component {
               </div>
             </div>
             <main id="col-main-with-sidebar">
-              <div
-                id="movie-detail-header-pro"
-                style={{backgroundImage: `url('http://progression-studios.com/skrn/images/demo/dashboard-movie-poster.jpg')`}}
-              >
+              <div id="movie-detail-header-pro">
+                <Img
+                  className="movie-detail-header-image"
+                  {...data.mainMedia.childImageSharp}
+                  alt=""
+                />
+
                 <div className="progression-studios-slider-more-options">
                   <i className="fas fa-ellipsis-h" />
                   <ul>
@@ -187,61 +174,29 @@ class MoviePage extends Component {
                   <i className="fas fa-play" />
                 </a>
 
-                <video
-                  id="VideoLightbox-1"
-                  poster="http://progression-studios.com/files/View_From_A_Blue_Moon_Trailer-HD.jpg"
-                  width="960"
-                  height="540"
-                >
-                  <source
-                    src="http://progression-studios.com/files/View_From_A_Blue_Moon_Trailer-576p.mp4"
-                    type="video/mp4"
-                  />
-                </video>
-
                 <div id="movie-detail-header-media">
                   <div className="dashboard-container">
                     <h5>Media</h5>
                     <div className="row">
-                      <div className="col-6 col-md-4 col-lg-4">
-                        <a
-                          className="movie-detail-media-link afterglow"
-                          href="#VideoLightbox-1"
+                      {videos.map(video => (
+                        <div
+                          key={videos.id}
+                          className="col-6 col-md-4 col-lg-4"
                         >
-                          <div className="movie-detail-media-image">
-                            <img src="http://progression-studios.com/skrn/images/demo/holly-mandarich-236721-unsplash.jpg" />
-                            <span>
-                              <i className="fas fa-play" />
-                            </span>
-                            <h6>Trailer</h6>
-                          </div>
-                        </a>
-                      </div>
-                      <div className="col-6 col-md-4 col-lg-4">
-                        <a
-                          className="movie-detail-media-link afterglow"
-                          href="#VideoLightbox-1"
-                        >
-                          <div className="movie-detail-media-image">
-                            <img src="http://progression-studios.com/skrn/images/demo/jonathan-pendleton-6555-unsplash.jpg" />
-                            <span>
-                              <i className="fas fa-play" />
-                            </span>
-                            <h6>Interview</h6>
-                          </div>
-                        </a>
-                      </div>
-                      <div className="col-6 col-md-4 col-lg-4">
-                        <a className="movie-detail-media-link" href="#!">
-                          <div className="movie-detail-media-image">
-                            <img src="http://progression-studios.com/skrn/images/demo/zachary-shea-577599-unsplash.jpg" />
-                            <span>
-                              <i className="fas fa-play" />
-                            </span>
-                            <h6>Movie Stills</h6>
-                          </div>
-                        </a>
-                      </div>
+                          <a
+                            className="movie-detail-media-link afterglow"
+                            href="#VideoLightbox-1"
+                          >
+                            <div className="movie-detail-media-image">
+                              <Img backgroundColor {...video.childImageSharp} />
+                              <span>
+                                <i className="fas fa-play" />
+                              </span>
+                              <h6>{video.title}</h6>
+                            </div>
+                          </a>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -255,115 +210,11 @@ class MoviePage extends Component {
                     <div className="col-sm">
                       <h5>Rate True Blood</h5>
 
-                      <div className="rating-pro">
-                        <label>
-                          <input
-                            type="radio"
-                            name="rating-pro"
-                            value="10"
-                            title="10 stars"
-                          />{" "}
-                          10
-                        </label>
-                        <label>
-                          <input
-                            type="radio"
-                            name="rating-pro"
-                            value="9"
-                            title="9 stars"
-                          />{" "}
-                          9
-                        </label>
-                        <label>
-                          <input
-                            type="radio"
-                            name="rating-pro"
-                            value="8"
-                            title="8 stars"
-                          />{" "}
-                          8
-                        </label>
-                        <label>
-                          <input
-                            type="radio"
-                            name="rating-pro"
-                            value="7"
-                            title="7 stars"
-                          />{" "}
-                          7
-                        </label>
-                        <label>
-                          <input
-                            type="radio"
-                            name="rating-pro"
-                            value="6"
-                            title="6 stars"
-                          />{" "}
-                          6
-                        </label>
-                        <label>
-                          <input
-                            type="radio"
-                            name="rating-pro"
-                            value="5"
-                            title="5 stars"
-                          />{" "}
-                          5
-                        </label>
-                        <label>
-                          <input
-                            type="radio"
-                            name="rating-pro"
-                            value="4"
-                            title="4 stars"
-                          />{" "}
-                          4
-                        </label>
-                        <label>
-                          <input
-                            type="radio"
-                            name="rating-pro"
-                            value="3"
-                            title="3 stars"
-                          />{" "}
-                          3
-                        </label>
-                        <label>
-                          <input
-                            type="radio"
-                            name="rating-pro"
-                            value="2"
-                            title="2 stars"
-                          />{" "}
-                          2
-                        </label>
-                        <label>
-                          <input
-                            type="radio"
-                            name="rating-pro"
-                            value="1"
-                            title="1 star"
-                          />{" "}
-                          1
-                        </label>
-                      </div>
+                      <Rate />
                     </div>
                     <div className="col-sm">
                       <h6>User Rating</h6>
-                      <div
-                        className="circle-rating-pro"
-                        data-value="0.86"
-                        data-animation-start-value="0.86"
-                        data-size="40"
-                        data-thickness="3"
-                        data-fill='{
-					          "color": "#42b740"
-					        }'
-                        data-empty-fill="#def6de"
-                        data-reverse="true"
-                      >
-                        <span style={{color:'#42b740'}}>8.6</span>
-                      </div>
+                      <Rating className="circle-rating-pro" rating={8.6} big />
                       <div className="clearfix" />
                     </div>
                   </div>
@@ -375,164 +226,71 @@ class MoviePage extends Component {
                   <h2>Storyline</h2>
                   <p>
                     Mae Holland (Emma Watson) seizes the opportunity of a
-                    lifetime when she lands a job with the world&laps;s most powerful
-                    technology and social media company. Encouraged by the
-                    company&laps;s founder (Tom Hanks), Mae joins a groundbreaking
-                    experiment that pushes the boundaries of privacy, ethics and
-                    personal freedom. Her participation in the experiment, and
-                    every decision she makes soon starts to affect the lives and
-                    futures of her friends, family and that of humanity.
+                    lifetime when she lands a job with the world&apos;s most
+                    powerful technology and social media company. Encouraged by
+                    the company&apos;s founder (Tom Hanks), Mae joins a
+                    groundbreaking experiment that pushes the boundaries of
+                    privacy, ethics and personal freedom. Her participation in
+                    the experiment, and every decision she makes soon starts to
+                    affect the lives and futures of her friends, family and that
+                    of humanity.
                   </p>
                 </div>
 
                 <div className="movie-details-section">
                   <h2>The Cast</h2>
                   <div className="row">
-                    <div className="col-12 col-md-6 col-lg-6 col-xl-4">
-                      <div className="item-listing-container-skrn">
-                        <a href="#!">
-                          <img src="http://progression-studios.com/skrn/images/demo/cast-1.jpg" alt="Cast" />
-                        </a>
-                        <div className="item-listing-text-skrn item-listing-movie-casting">
-                          <h6>
-                            <a href="#!">Robert Downey Jr.</a>
-                          </h6>
-                          <div className="movie-casting-sub-title">
-                            Tony Stark
+                    {casts.map(cast => (
+                      <div
+                        key={cast.id}
+                        className="col-12 col-md-6 col-lg-6 col-xl-4"
+                      >
+                        <div className="item-listing-container-skrn">
+                          <a href="#!">
+                            <Img {...cast.childImageSharp} />
+                          </a>
+                          <div className="item-listing-text-skrn item-listing-movie-casting">
+                            <h6>
+                              <a href="#!">{cast.name}</a>
+                            </h6>
+                            <div className="movie-casting-sub-title">
+                              {cast.movieName}
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-
-                    <div className="col-12 col-md-6 col-lg-6 col-xl-4">
-                      <div className="item-listing-container-skrn">
-                        <a href="#!">
-                          <img src="http://progression-studios.com/skrn/images/demo/cast-2.jpg" alt="Cast" />
-                        </a>
-                        <div className="item-listing-text-skrn item-listing-movie-casting">
-                          <h6>
-                            <a href="#!">Scarlett Johansson</a>
-                          </h6>
-                          <div className="movie-casting-sub-title">
-                            Black Widow
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="col-12 col-md-6 col-lg-6 col-xl-4">
-                      <div className="item-listing-container-skrn">
-                        <a href="#!">
-                          <img src="http://progression-studios.com/skrn/images/demo/cast-3.jpg" alt="Cast" />
-                        </a>
-                        <div className="item-listing-text-skrn item-listing-movie-casting">
-                          <h6>
-                            <a href="#!">Chris Hemsworth Thor</a>
-                          </h6>
-                          <div className="movie-casting-sub-title">
-                            Tony Stark
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    ))}
                   </div>
                 </div>
 
                 <div className="movie-details-section">
                   <h2>Similar Movies</h2>
                   <div className="row">
-                    <div className="col-12 col-md-6 col-lg-6 col-xl-4">
-                      <div className="item-listing-container-skrn">
-                        <a href="dashboard-movie-profile.html">
-                          <img src="http://progression-studios.com/skrn/images/demo/listing-4.jpg" alt="Listing" />
-                        </a>
-                        <div className="item-listing-text-skrn">
-                          <div className="item-listing-text-skrn-vertical-align">
-                            <h6>
-                              <a href="dashboard-movie-profile.html">
-                                Bad Neighbors 2
-                              </a>
-                            </h6>
-                            <div
-                              className="circle-rating-pro"
-                              data-value="0.72"
-                              data-animation-start-value="0.72"
-                              data-size="32"
-                              data-thickness="3"
-                              data-fill='{
-								          "color": "#42b740"
-								        }'
-                              data-empty-fill="#def6de"
-                              data-reverse="true"
-                            >
-                              <span style={{color:'#42b740'}}>7.2</span>
+                    {movies.map(movie => (
+                      <div
+                        key={movie.id}
+                        className="col-12 col-md-6 col-lg-6 col-xl-4"
+                      >
+                        <div className="item-listing-container-skrn">
+                          <a href="dashboard-movie-profile.html">
+                            <Img {...movie.childImageSharp} />
+                          </a>
+                          <div className="item-listing-text-skrn">
+                            <div className="item-listing-text-skrn-vertical-align">
+                              <h6>
+                                <a href="dashboard-movie-profile.html">
+                                  {movie.title}
+                                </a>
+                              </h6>
+                              <Rating
+                                className="circle-rating-pro"
+                                rating={movie.rating}
+                              />
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-
-                    <div className="col-12 col-md-6 col-lg-6 col-xl-4">
-                      <div className="item-listing-container-skrn">
-                        <a href="dashboard-movie-profile.html">
-                          <img src="http://progression-studios.com/skrn/images/demo/listing-5.jpg" alt="Listing" />
-                        </a>
-                        <div className="item-listing-text-skrn">
-                          <div className="item-listing-text-skrn-vertical-align">
-                            <h6>
-                              <a href="dashboard-movie-profile.html">
-                                Star Wars: Rogue One
-                              </a>
-                            </h6>
-                            <div
-                              className="circle-rating-pro"
-                              data-value="0.86"
-                              data-animation-start-value="0.86"
-                              data-size="32"
-                              data-thickness="3"
-                              data-fill='{
-								          "color": "#42b740"
-								        }'
-                              data-empty-fill="#def6de"
-                              data-reverse="true"
-                            >
-                              <span style={{color:'#42b740'}}>8.6</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="col-12 col-md-6 col-lg-6 col-xl-4">
-                      <div className="item-listing-container-skrn">
-                        <a href="dashboard-movie-profile.html">
-                          <img src="http://progression-studios.com/skrn/images/demo/listing-6.jpg" alt="Listing" />
-                        </a>
-                        <div className="item-listing-text-skrn">
-                          <div className="item-listing-text-skrn-vertical-align">
-                            <h6>
-                              <a href="dashboard-movie-profile.html">
-                                The Imitation Game
-                              </a>
-                            </h6>
-                            <div
-                              className="circle-rating-pro"
-                              data-value="0.6"
-                              data-animation-start-value="0.6"
-                              data-size="32"
-                              data-thickness="3"
-                              data-fill='{
-								          "color": "#ff4141"
-								        }'
-                              data-empty-fill="#ffe1e1"
-                              data-reverse="true"
-                            >
-                              <span style={{color:'#ff4141'}}>6.0</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -545,3 +303,76 @@ class MoviePage extends Component {
 }
 
 export default MoviePage;
+
+export const pageQuery = graphql`
+  query MovieQuery {
+    mainImage: file(relativePath: { eq: "movie-detail-poster.jpg" }) {
+      childImageSharp {
+        fluid(maxWidth: 450, maxHeight: 620) {
+          ...GatsbyImageSharpFluid_withWebp_tracedSVG
+        }
+      }
+    }
+    mainMedia: file(relativePath: { eq: "dashboard-movie-poster.jpg" }) {
+      childImageSharp {
+        fluid(maxWidth: 1460) {
+          ...GatsbyImageSharpFluid_withWebp_tracedSVG
+        }
+      }
+    }
+    videos: allFile(
+      filter: {
+        relativePath: {
+          in: [
+            "holly-mandarich-236721-unsplash.jpg"
+            "jonathan-pendleton-6555-unsplash.jpg"
+            "zachary-shea-577599-unsplash.jpg"
+          ]
+        }
+      }
+    ) {
+      edges {
+        node {
+          childImageSharp {
+            fluid(maxWidth: 500, maxHeight: 300) {
+              ...GatsbyImageSharpFluid_withWebp_noBase64
+            }
+          }
+        }
+      }
+    }
+    casts: allFile(
+      filter: {
+        relativePath: { in: ["cast-1.jpg", "cast-2.jpg", "cast-3.jpg"] }
+      }
+    ) {
+      edges {
+        node {
+          childImageSharp {
+            fluid(maxWidth: 430, maxHeight: 570) {
+              ...GatsbyImageSharpFluid_withWebp_tracedSVG
+            }
+          }
+        }
+      }
+    }
+
+    movies: allFile(
+      filter: {
+        relativePath: {
+          in: ["listing-4.jpg", "listing-5.jpg", "listing-6.jpg"]
+        }
+      }
+    ) {
+      edges {
+        node {
+          childImageSharp {
+            fluid(maxWidth: 430, maxHeight: 570) {
+              ...GatsbyImageSharpFluid_withWebp_tracedSVG
+            }
+          }
+        }
+      }
+    }
+  }
+`;
