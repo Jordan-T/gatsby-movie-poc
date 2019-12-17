@@ -1,3 +1,4 @@
+import { graphql } from "gatsby";
 import React from "react";
 import dayjs from "../plugins/dayjs";
 import Rating from "./raiting";
@@ -17,3 +18,13 @@ const Review = ({ name, date, content, rating, withSpoiler = false }) => {
 };
 
 export default Review;
+
+export const query = graphql`
+  fragment MovieReview on MoviesYamlReviews {
+    name
+    date
+    rating
+    content
+    withSpoiler
+  }
+`;

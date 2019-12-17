@@ -1,0 +1,104 @@
+title: True Blood
+poster: ../../src/images/movie-detail-poster.jpg
+
+ratings:
+  - PG-13
+  - HD
+realised:
+  date: 2017-10-27
+  country: USA
+length: 163
+
+director: James Wan
+
+reviews:
+  - id: 1
+    name: Dan Cederholm
+    date: 2017-10-27
+    rating: 8.6
+    content:
+      <p>They don&apos;t make many Sci-Fi films these days. This was a
+      pleasant surprise all throughout the film. I really like
+      this film.</p>
+    withSpoiler: true
+  - id: 2
+    name: Jeff Seid
+    date: 2017-10-18
+    rating: 5.3
+    content:
+      <p>Coming out of the theatres following my viewing of this
+      film, I was confused. I couldn&apos;t decide whether I liked it
+      or not.</p>
+    withSpoiler: false
+  - id: 3
+    name: Christian De Guzman
+    date: 2017-08-26
+    rating: 7.2
+    content:
+      <p>I have been a cinema lover for years, read a lot of
+      reviews on SKRN and everywhere, and never found the right
+      movie to write my first review. I always thought I would
+      wait for the movie.</p>
+      <p>And this is it!</p>
+    withSpoiler: false
+  - id: 4
+    name: Jennifer Thomas
+    date: 2017-08-15
+    rating: 9
+    content:
+      <p>&apos;Oblivion&apos; was incredible. The visuals, the score, the
+      acting, were all amazing. The plot is definitely one of
+      the most original I&apos;ve seen in a while</p>
+    withSpoiler: false
+
+test:
+  - ../../src/images/holly-mandarich-236721-unsplash.jpg
+  - ../../src/images/holly-mandarich-236721-unsplash.jpg
+test2:
+  - file: ../../src/images/holly-mandarich-236721-unsplash.jpg
+  - file: ../../src/images/holly-mandarich-236721-unsplash.jpg
+test3:
+  - yeah:
+      - ../../src/images/holly-mandarich-236721-unsplash.jpg
+      - ../../src/images/holly-mandarich-236721-unsplash.jpg
+  - yeah2: ../../src/images/holly-mandarich-236721-unsplash.jpg
+
+mainMedia: ../../src/images/dashboard-movie-poster.jpg
+media1:
+    title: Trailer
+    image: ../../src/images/holly-mandarich-236721-unsplash.jpg
+media2:
+    title: Interview
+    image: ../../src/images/holly-mandarich-236721-unsplash.jpg
+media3:
+    title: Movie Stills
+    image: ../../src/images/holly-mandarich-236721-unsplash.jpg
+
+
+userRating: 8.6
+storyLine:
+  <p>
+  Mae Holland (Emma Watson) seizes the opportunity of a
+  lifetime when she lands a job with the world&apos;s most
+  powerful technology and social media company. Encouraged by
+  the company&apos;s founder (Tom Hanks), Mae joins a
+  groundbreaking experiment that pushes the boundaries of
+  privacy, ethics and personal freedom. Her participation in
+  the experiment, and every decision she makes soon starts to
+  affect the lives and futures of her friends, family and that
+  of humanity.
+  </p>
+
+casts:
+  - id: 1
+    actor: ../actors/actor1.yaml
+    role: Tony Stark
+  - id: 2
+    actor: ../actors/actor1.yaml
+    role: Tony Stark
+  - id: 3
+    actor: ../actors/actor1.yaml
+    role: Tony Stark
+
+relatedMovies:
+  - ./test2.yaml

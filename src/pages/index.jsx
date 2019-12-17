@@ -19,6 +19,14 @@ class Index extends React.Component {
               <Link to="/movie">&gt; Test movie page &lt;</Link>
             </h1>
             <hr />
+            <h1 className="my-5">Movies</h1>
+            <ul>
+              <li>
+                <Link to="/movies/true-blood">True Blood</Link>
+              </li>
+            </ul>
+            <hr />
+
             <PostListing postEdges={postEdges} />
           </div>
         </main>

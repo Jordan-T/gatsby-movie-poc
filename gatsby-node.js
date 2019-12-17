@@ -39,6 +39,35 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     }
     createNodeField({ node, name: "slug", value: slug });
   }
+  if (node.internal.type === "MoviesYaml") {
+    if (Object.prototype.hasOwnProperty.call(node, "slug")) {
+      slug = `/${_.kebabCase(node.slug)}`;
+    } else {
+      const fileNode = getNode(node.parent);
+      const parsedFilePath = path.parse(fileNode.relativePath);
+      if (Object.prototype.hasOwnProperty.call(node, "title")) {
+        slug = `/${_.kebabCase(node.title)}`;
+      } else if (parsedFilePath.name !== "index" && parsedFilePath.dir !== "") {
+        slug = `/${parsedFilePath.dir}/${parsedFilePath.name}/`;
+      } else if (parsedFilePath.dir === "") {
+        slug = `/${parsedFilePath.name}/`;
+      } else {
+        slug = `/${parsedFilePath.dir}/`;
+      }
+    }
+
+    if (Object.prototype.hasOwnProperty.call(node, "date")) {
+      const date = moment(node.date, siteConfig.dateFromFormat);
+      if (!date.isValid) console.warn(`WARNING: Invalid date.`, node);
+
+      createNodeField({
+        node,
+        name: "date",
+        value: date.toISOString()
+      });
+    }
+    createNodeField({ node, name: "slug", value: slug });
+  }
 };
 
 exports.createPages = async ({ graphql, actions }) => {
@@ -46,6 +75,7 @@ exports.createPages = async ({ graphql, actions }) => {
   const postPage = path.resolve("src/templates/post.jsx");
   const tagPage = path.resolve("src/templates/tag.jsx");
   const categoryPage = path.resolve("src/templates/category.jsx");
+  const moviePage = path.resolve("src/templates/movie.jsx");
 
   const markdownQueryResult = await graphql(
     `
@@ -65,6 +95,16 @@ exports.createPages = async ({ graphql, actions }) => {
             }
           }
         }
+
+        allMoviesYaml {
+          edges {
+            node {
+              fields {
+                slug
+              }
+            }
+          }
+        }
       }
     `
   );
@@ -78,6 +118,7 @@ exports.createPages = async ({ graphql, actions }) => {
   const categorySet = new Set();
 
   const postsEdges = markdownQueryResult.data.allMarkdownRemark.edges;
+  const moviesEdges = markdownQueryResult.data.allMoviesYaml.edges;
 
   postsEdges.sort((postA, postB) => {
     const dateA = moment(
@@ -140,6 +181,16 @@ exports.createPages = async ({ graphql, actions }) => {
       component: categoryPage,
       context: {
         category
+      }
+    });
+  });
+
+  moviesEdges.forEach(({ node: { fields: { slug } } }) => {
+    createPage({
+      path: `/movies${slug}`,
+      component: moviePage,
+      context: {
+        slug
       }
     });
   });

@@ -20,6 +20,7 @@ module.exports = {
   plugins: [
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-lodash",
+    `gatsby-transformer-yaml`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -38,7 +39,21 @@ module.exports = {
       resolve: "gatsby-source-filesystem",
       options: {
         name: "posts",
-        path: `${__dirname}/content/`
+        path: `${__dirname}/content/posts/`
+      }
+    },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: "movies",
+        path: `${__dirname}/content/movies/`
+      }
+    },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: "actors",
+        path: `${__dirname}/content/actors/`
       }
     },
     {
@@ -106,7 +121,7 @@ module.exports = {
       resolve: "gatsby-plugin-purgecss",
       options: {
         printRejected: true,
-        develop: true,
+        // develop: true,
         purgeOnly: ["src/assets/css/"]
       }
     },
