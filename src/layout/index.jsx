@@ -22,7 +22,7 @@ export default class MainLayout extends PureComponent {
           <div id="video-logo-background">
             <Link to="/">
               <img
-                src="http://progression-studios.com/skrn/images/logo-video-layout.png"
+                src="/skrn/images/logo-video-layout.png"
                 alt="Logo"
               />
             </Link>
@@ -160,7 +160,7 @@ export default class MainLayout extends PureComponent {
           <div id="header-user-profile">
             <div id="header-user-profile-click" className="noselect">
               <img
-                src="http://progression-studios.com/skrn/images/demo/user-profile.jpg"
+                src="/skrn/images/demo/user-profile.jpg"
                 alt="Suzie"
               />
               <div id="header-username">Suzie Smith</div>
@@ -214,7 +214,7 @@ export default class MainLayout extends PureComponent {
                   <li>
                     <a href="#!">
                       <img
-                        src="http://progression-studios.com/skrn/images/demo/user-profile-2.jpg"
+                        src="/skrn/images/demo/user-profile-2.jpg"
                         alt="Profile"
                       />
                       Lorem ipsum dolor sit amet, consec tetur adipiscing elit.{" "}
@@ -226,7 +226,7 @@ export default class MainLayout extends PureComponent {
                   <li>
                     <a href="#!">
                       <img
-                        src="http://progression-studios.com/skrn/images/demo/user-profile-3.jpg"
+                        src="/skrn/images/demo/user-profile-3.jpg"
                         alt="Profile"
                       />
                       Donec vitae lacus id arcu molestie mollis.{" "}
@@ -236,7 +236,7 @@ export default class MainLayout extends PureComponent {
                   <li>
                     <a href="#!">
                       <img
-                        src="http://progression-studios.com/skrn/images/demo/user-profile-4.jpg"
+                        src="/skrn/images/demo/user-profile-4.jpg"
                         alt="Profile"
                       />
                       Aenean vitae lectus non purus facilisis imperdiet.{" "}
